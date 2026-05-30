@@ -16,11 +16,3 @@ collections/
 
 # Ansible Vault password file — never commit
 .vault-password
-
-# Claude Code local settings
-.claude/
-
-# Локальный файл с условиями текущего задания
-task.txt
-
-
