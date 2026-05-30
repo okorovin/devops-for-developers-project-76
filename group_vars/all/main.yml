@@ -1,2 +1,47 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
+
+pip_install_packages:
+  - name: docker
+
+docker_users:
+  - ubuntu
+
+redmine_image: "redmine:6.0"
+redmine_port: 3000
+redmine_app_dir: /opt/redmine
+
+db_host: rc1a-svuks0amoaumicgj.mdb.yandexcloud.net
+db_port: 6432
+db_name: hexlet
+db_user: hexlet
+
+datadog_site: datadoghq.eu
+datadog_agent_major_version: 7
+
+datadog_config:
+  tags:
+    - "env:production"
+    - "project:hexlet-76"
+    - "role:webserver"
+  log_level: INFO
+
+datadog_checks:
+  http_check:
+    init_config:
+    instances:
+      - name: redmine-public
+        url: https://gosha.tech/login
+        timeout: 5
+        check_certificate_expiration: true
+        days_warning: 14
+        days_critical: 7
+        tags:
+          - "service:redmine"
+          - "endpoint:public"
+      - name: redmine-local
+        url: "http://localhost:{{ redmine_port }}/login"
+        timeout: 5
+        tags:
+          - "service:redmine"
+          - "endpoint:local"
