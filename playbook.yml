@@ -10,6 +10,22 @@
         update_cache: true
         cache_valid_time: 3600
 
+    - name: Install software-properties-common (needed to enable universe repo)
+      ansible.builtin.apt:
+        name: software-properties-common
+        state: present
+
+    - name: Enable universe repository (python3-debian lives there)
+      ansible.builtin.shell: add-apt-repository -y universe
+      args:
+        executable: /bin/bash
+      when: ansible_distribution == "Ubuntu"
+      changed_when: false
+
+    - name: Refresh apt cache after enabling universe
+      ansible.builtin.apt:
+        update_cache: true
+
   roles:
     - geerlingguy.pip
     - geerlingguy.docker
