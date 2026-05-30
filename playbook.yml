@@ -4,6 +4,12 @@
   become: true
   tags: setup
 
+  pre_tasks:
+    - name: Refresh apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
   roles:
     - geerlingguy.pip
     - geerlingguy.docker
