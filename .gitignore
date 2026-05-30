@@ -1,0 +1,18 @@
+node_modules/
+.cache/
+.npm/
+dist/
+build/
+*.sqlite
+.env
+
+.idea/
+.vscode/
+
+# Ansible Galaxy install artifacts
+roles/
+collections/
+*.retry
+
+# Ansible Vault password file — never commit
+.vault-password
