@@ -1,4 +1,0 @@
----
-db_password: "{{ vault_db_password }}"
-redmine_secret_key: "{{ vault_redmine_secret_key }}"
-datadog_api_key: "{{ vault_datadog_api_key }}"

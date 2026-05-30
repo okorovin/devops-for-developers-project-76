@@ -16,6 +16,10 @@ db_port: 6432
 db_name: hexlet
 db_user: hexlet
 
+db_password: "{{ vault_db_password | default('') }}"
+redmine_secret_key: "{{ vault_redmine_secret_key | default('') }}"
+datadog_api_key: "{{ vault_datadog_api_key | default('') }}"
+
 datadog_site: datadoghq.eu
 datadog_agent_major_version: 7
 
