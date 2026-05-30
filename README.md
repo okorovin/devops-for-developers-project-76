@@ -7,12 +7,10 @@ https://gosha.tech
 ## Команды
 
 ```bash
-make install   # подтянуть роли из Ansible Galaxy
-make setup     # install + установить Docker и Python-пакет docker на ВМ
-make deploy    # развернуть/обновить Redmine на серверах (без переустановки настроек ОС)
-make ping      # SSH-доступность всех ВМ
+make install      # подтянуть роли из Ansible Galaxy
+make setup        # install + установить Docker и Python-пакет docker на ВМ
+make deploy       # развернуть/обновить Redmine на серверах (без переустановки настроек ОС)
+make ping         # SSH-доступность всех ВМ
+make edit-vault   # отредактировать зашифрованные секреты
+make view-vault   # посмотреть зашифрованные секреты
 ```
-
-`make setup` запускает первый play плейбука с тегом `setup` (роли `geerlingguy.pip` и `geerlingguy.docker`).
-
-`make deploy` запускает второй play с тегом `deploy` — рендерит `/opt/redmine/.env` из шаблона и поднимает/перезапускает контейнер `redmine:6.0` с `restart_policy=unless-stopped`. Контейнер пересоздаётся **только если изменился `.env`**.

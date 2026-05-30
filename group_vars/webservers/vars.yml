@@ -1,0 +1,20 @@
+---
+ansible_python_interpreter: /usr/bin/python3
+
+pip_install_packages:
+  - name: docker
+
+docker_users:
+  - ubuntu
+
+redmine_image: "redmine:6.0"
+redmine_port: 3000
+redmine_app_dir: /opt/redmine
+
+db_host: rc1a-svuks0amoaumicgj.mdb.yandexcloud.net
+db_port: 6432
+db_name: hexlet
+db_user: hexlet
+
+db_password: "{{ vault_db_password }}"
+redmine_secret_key: "{{ vault_redmine_secret_key }}"
