@@ -1,0 +1,23 @@
+node_modules/
+.cache/
+.npm/
+dist/
+build/
+*.sqlite
+.env
+
+.idea/
+.vscode/
+
+# Ansible Galaxy install artifacts
+roles/
+collections/
+*.retry
+
+# Claude Code local settings
+.claude/
+
+# Локальный файл с условиями текущего задания
+task.txt
+
+

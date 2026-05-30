@@ -1,0 +1,45 @@
+---
+- name: Setup servers (Docker + Python tooling)
+  hosts: all
+  become: true
+  tags: setup
+
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+
+- name: Deploy Redmine
+  hosts: all
+  become: true
+  tags: deploy
+
+  tasks:
+    - name: Ensure app directory exists
+      ansible.builtin.file:
+        path: "{{ redmine_app_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Render .env from template
+      ansible.builtin.template:
+        src: redmine.env.j2
+        dest: "{{ redmine_app_dir }}/.env"
+        mode: '0600'
+      register: env_render
+
+    - name: Remove leftover hello container
+      community.docker.docker_container:
+        name: hello
+        state: absent
+
+    - name: Run Redmine container
+      community.docker.docker_container:
+        name: redmine
+        image: "{{ redmine_image }}"
+        pull: always
+        env_file: "{{ redmine_app_dir }}/.env"
+        published_ports:
+          - "{{ redmine_port }}:3000"
+        restart_policy: unless-stopped
+        state: started
+        recreate: "{{ env_render.changed }}"
