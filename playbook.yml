@@ -8,6 +8,14 @@
     - geerlingguy.pip
     - geerlingguy.docker
 
+- name: DataDog monitoring agent
+  hosts: webservers
+  become: true
+  tags: setup
+
+  roles:
+    - datadog.datadog
+
 - name: Deploy Redmine
   hosts: all
   become: true

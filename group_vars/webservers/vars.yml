@@ -18,3 +18,34 @@ db_user: hexlet
 
 db_password: "{{ vault_db_password }}"
 redmine_secret_key: "{{ vault_redmine_secret_key }}"
+
+datadog_api_key: "{{ vault_datadog_api_key }}"
+datadog_site: datadoghq.eu
+datadog_agent_major_version: 7
+
+datadog_config:
+  tags:
+    - "env:production"
+    - "project:hexlet-76"
+    - "role:webserver"
+  log_level: INFO
+
+datadog_checks:
+  http_check:
+    init_config:
+    instances:
+      - name: redmine-public
+        url: https://gosha.tech/login
+        timeout: 5
+        check_certificate_expiration: true
+        days_warning: 14
+        days_critical: 7
+        tags:
+          - "service:redmine"
+          - "endpoint:public"
+      - name: redmine-local
+        url: "http://localhost:{{ redmine_port }}/login"
+        timeout: 5
+        tags:
+          - "service:redmine"
+          - "endpoint:local"
